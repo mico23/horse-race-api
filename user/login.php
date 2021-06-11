@@ -16,15 +16,20 @@ $user = new User($database);
 $user->username = isset($_GET['username']) ? $_GET['username'] : die();
 $user->password = isset($_GET['password']) ? $_GET['password'] : die();
 
+$user_arr = array();
+$user_arr['username'] = $user->username;
+
 $stmt = $user->login();
 $nrows = oci_fetch_all($stmt, $res);
 
-if (empty($credentials->username) && empty($credentials->password)) {
+if ($nrows == 0) {
     http_response_code(401);
     echo json_encode(array("message" => "Credentials not found."));
+} else {
+    http_response_code(200);
+    $user_arr['message'] = "Login successful.";
+    echo json_encode($user_arr);
 }
-
-
 
 $this->database->disconnectFromDB();
 ?>
