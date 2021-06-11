@@ -14,8 +14,8 @@ class Membership {
 
     function createMember() {
         $query = "INSERT INTO " . $this->table_name . 
-            " (memberID, fee, standing, type) VALUES (" . 
-            $this->memberID . ", " . $this->fee . ", " . $this->standing . ", " . $this->type . ")";
+            " (memberID, fee, standing, type) VALUES ('" . 
+            $this->memberID . "', " . $this->fee . ", '" . $this->standing . "', '" . $this->type . "')";
         $stmt = $this->database->executePlainSQL($query);
 
         if (OCICommit($this->database->conn)) {

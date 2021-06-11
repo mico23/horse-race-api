@@ -19,11 +19,11 @@ $customer = new Customer($database);
 $member = new Membership($database);
 
 // Decode provided data
-$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents('php://input'), true);
 
 // Set properties of user
-$user->username = $data->username;
-$user->password = $data->password;
+$user->username = $data['username'];
+$user->password = $data['password'];
 
 // Create user; if failure, send message and exit
 if (!$user->createUser()) {
@@ -33,10 +33,10 @@ if (!$user->createUser()) {
 }
 
 // Set properties of member
-$member->memberID = $data->memberID;
-$member->fee = $data->fee;
+$member->memberID = $data['memberID'];
+$member->fee = $data['fee'];
 $member->standing = 'Valid';
-$member->type = $data->type;
+$member->type = $data['type'];
 
 // Create member; if failure, send message and exit
 if (!$member->createMember()) {
@@ -46,12 +46,12 @@ if (!$member->createMember()) {
 }
 
 // Set properties of customer
-$customer->accountID = $data->accountID;
+$customer->accountID = $data['accountID'];
 $customer->name = $data->name;
 $customer->balance = 0;
-$customer->address = $data->address;
-$customer->memberID = $data->memberID;
-$customer->username = $data->username;
+$customer->address = $data['address'];
+$customer->memberID = $data['memberID'];
+$customer->username = $data['username'];
 
 // Create customer; if failure, send message and exit
 if (!$customer->createCustomer()) {

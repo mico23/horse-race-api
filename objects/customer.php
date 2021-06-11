@@ -23,9 +23,9 @@ class Customer {
 
     function createCustomer() {
         $query = "INSERT INTO " . $this->table_name . 
-            " (accountID, name, balance, address, memberID, username) VALUES (" . 
-            $this->accountID . ", " . $this->name . ", " . $this->balance . ", " . 
-            $this->address . ", " . $this->memberID . ", " . $this->username . ")";
+            " (accountID, name, balance, address, memberID, username) VALUES ('" . 
+            $this->accountID . "', '" . $this->name . "', '" . $this->balance . "', '" . 
+            $this->address . "', '" . $this->memberID . "', '" . $this->username . "')";
         $stmt = $this->database->executePlainSQL($query);
 
         if (OCICommit($this->database->conn)) {
