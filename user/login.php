@@ -10,14 +10,18 @@ include_once "../objects/user.php";
 $database = new Database();
 $db = $database->connectToDB();
 
+// Instantiate new user object
 $user = new User($database);
 
+// Set user properties using params in request
 $user->username = isset($_GET['username']) ? $_GET['username'] : die();
 $user->password = isset($_GET['password']) ? $_GET['password'] : die();
 
+// Object to send back upon login
 $user_arr = array();
 $user_arr['username'] = $user->username;
 
+// Attempt login
 $stmt = $user->login();
 $nrows = oci_fetch_all($stmt, $res);
 

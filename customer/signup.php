@@ -60,5 +60,9 @@ if (!$customer->createCustomer()) {
     die();
 }
 
+// Upon creation of all required entities, send status code 201
+http_response_code(201);
+echo json_encode(array("message" => "Customer creation successful."));
+
 $this->database->disconnectFromDB();
 ?>
