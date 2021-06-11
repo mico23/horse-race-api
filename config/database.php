@@ -1,7 +1,7 @@
 <?php
 class Database {
     private $username = "ora_enxie";
-    private $password = "a47605134";
+    private $password = "<PASSWORD HERE>";
     private $hostname = "dbhost.students.cs.ubc.ca:1522/stu";
     public $conn = NULL;
 
