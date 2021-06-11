@@ -21,7 +21,7 @@ $member = new Membership($database);
 // Decode provided data
 $data = json_decode(file_get_contents("php://input"));
 
-// Set properties of user first
+// Set properties of user
 $user->username = $data->username;
 $user->password = $data->password;
 
@@ -32,14 +32,31 @@ if (!$user->createUser()) {
     die();
 }
 
+// Set properties of member
 $member->memberID = $data->memberID;
 $member->fee = $data->fee;
 $member->standing = 'Valid';
 $member->type = $data->type;
 
+// Create member; if failure, send message and exit
 if (!$member->createMember()) {
     http_response_code(500);
-    echo json_encode(array("message" => "Error creating user with given credentials."));
+    echo json_encode(array("message" => "Error creating membership with given fields."));
+    die();
+}
+
+// Set properties of customer
+$customer->accountID = $data->accountID;
+$customer->name = $data->name;
+$customer->balance = 0;
+$customer->address = $data->address;
+$customer->memberID = $data->memberID;
+$customer->username = $data->username;
+
+// Create customer; if failure, send message and exit
+if (!$customer->createCustomer()) {
+    http_response_code(500);
+    echo json_encode(array("message" => "Error creating customer with given fields."));
     die();
 }
 

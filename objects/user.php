@@ -18,7 +18,7 @@ class User {
     }
 
     function createUser() {
-        $query = "INSERT INTO " . $this->table_name . "(username, password) VALUES (" . $this->username . ", " . $this->password . ")";
+        $query = "INSERT INTO " . $this->table_name . " (username, password) VALUES (" . $this->username . ", " . $this->password . ")";
         $stmt = $this->database->executePlainSQL($query);
         
         if (OCICommit($this->database->conn)) {

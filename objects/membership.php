@@ -13,10 +13,16 @@ class Membership {
     }
 
     function createMember() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE username = " . $this->username . " AND password = " . $this->password;
+        $query = "INSERT INTO " . $this->table_name . 
+            " (memberID, fee, standing, type) VALUES (" . 
+            $this->memberID . ", " . $this->fee . ", " . $this->standing . ", " . $this->type . ")";
         $stmt = $this->database->executePlainSQL($query);
 
-        return $stmt;
+        if (OCICommit($this->database->conn)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 ?>
