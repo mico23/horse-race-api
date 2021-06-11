@@ -8,11 +8,14 @@ include_once "../objects/customer.php";
 $database = new Database();
 $db = $database->connectToDB();
 
+// Instantiate new customer object
 $customer = new Customer($database);
 
+// Attempt fetching all customers
 $stmt = $customer->read();
 $nrows = oci_fetch_all($stmt, $res);
 
+// Instantiate records array and push customer objects using loop
 if ($nrows > 0) {
     $customers_arr = array();
     $customers_arr["records"] = array();
