@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Max-Age: 3600");
@@ -34,5 +38,5 @@ if ($nrows == 0) {
     echo json_encode($user_arr);
 }
 
-$this->database->disconnectFromDB();
+$database->disconnectFromDB();
 ?>
