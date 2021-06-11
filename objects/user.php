@@ -16,5 +16,16 @@ class User {
 
         return $stmt;
     }
+
+    function createUser() {
+        $query = "INSERT INTO " . $this->table_name . "(username, password) VALUES (" . $this->username . ", " . $this->password . ")";
+        $stmt = $this->database->executePlainSQL($query);
+        
+        if (OCICommit($this->database->conn)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>
