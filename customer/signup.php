@@ -51,7 +51,7 @@ if (!$member->createMember()) {
 
 // Set properties of customer
 $customer->accountID = $data['accountID'];
-$customer->name = $data->name;
+$customer->name = $data['name'];
 $customer->balance = 0;
 $customer->address = $data['address'];
 $customer->memberID = $data['memberID'];
