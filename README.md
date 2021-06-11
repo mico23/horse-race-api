@@ -5,7 +5,7 @@ This is the REST API for the horse racing database. We have used an OOP approach
 # Completed endpoints
 
 ## Login user (for employee or customer)
-https://www.students.cs.ubc.ca/~&lt;CWL HERE&gt;/horse-racing-api/user/login.php?username='&lt;USERNAME&gt;'&amp;password='&lt;PASSWORD&gt;'
+https://www.students.cs.ubc.ca/~&lt;CWL&gt;/horse-racing-api/user/login.php?username='&lt;USERNAME&gt;'&amp;password='&lt;PASSWORD&gt;'
 
 ## Fetch customers
-https://www.students.cs.ubc.ca/~&lt;CWL HERE&gt;/horse-racing-api/customer/read.php
+https://www.students.cs.ubc.ca/~&lt;CWL&gt;/horse-racing-api/customer/read.php
