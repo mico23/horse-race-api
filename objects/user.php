@@ -2,7 +2,7 @@
 class User {
     private $database;
     private $table_name = "\"User\"";
-    
+
     public $username;
     public $password;
 
@@ -11,7 +11,7 @@ class User {
     }
 
     function login() {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE username = :username AND password = :password";
+        $query = "SELECT * FROM " . $this->table_name . " WHERE username = " . $this->username . " AND password = " . $this->password;
         $stmt = $this->database->executePlainSQL($query);
 
         return $stmt;
