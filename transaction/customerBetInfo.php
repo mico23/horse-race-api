@@ -12,7 +12,7 @@ include_once "../objects/bet.php";
 $database = new Database();
 $db = $database->connectToDB();
 
-// Instantiate new customer object
+// Instantiate new bet object
 $bet = new Bet($database);
 
 // Instantiate customer's accountID

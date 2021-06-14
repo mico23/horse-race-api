@@ -12,6 +12,7 @@ class Customer {
     public $address;
     public $memberID;
     public $username;
+    public $fund;
 
     public function __construct($db) {
         $this->database = $db;
@@ -29,6 +30,20 @@ class Customer {
         $stmt = $this->database->executePlainSQL($query);
 
         return $stmt;
+    }
+
+    function addFund() {
+        $query = "UPDATE " . $this->table_name . 
+        "SET balance = balance + " . $this->fund . 
+        "WHERE username = " . $this->username;
+        $stmt = $this->database->executePlainSQL($query);
+
+        // factor this later
+        if (OCICommit($this->database->conn)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function createCustomer() {
