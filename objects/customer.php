@@ -4,7 +4,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 class Customer {
     private $database;
-    private $table_name = "\"Customer\"";
+    private $table_name = "Customer";
     
     public $accountID;
     public $name;
@@ -25,6 +25,7 @@ class Customer {
         return $stmt;
     }
 
+    // modify this to join membership table
     function getCustomerInfo() {
         $query = "SELECT * FROM " . $this->table_name . " WHERE username = " . $this->username;
         $stmt = $this->database->executePlainSQL($query);

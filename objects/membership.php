@@ -4,7 +4,7 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 class Membership {
     private $database;
-    private $table_name = "\"Membership\"";
+    private $table_name = "Membership";
 
     public $memberID;
     public $fee;

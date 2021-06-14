@@ -31,6 +31,7 @@ if ($nrows > 0) {
         $customer_i = array(
             "betID" => $res["BETID"][$i],
             "horseID" => $res["HORSEID"][$i],
+            "nickname" => $res["NICKNAME"][$i],
             "accountID" => $res["ACCOUNTID"][$i],
             "amount" => $res["AMOUNT"][$i],
             "bet_date" => $res["BET_DATE"][$i],

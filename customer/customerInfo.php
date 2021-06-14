@@ -16,9 +16,10 @@ $db = $database->connectToDB();
 $customer = new Customer($database);
 
 // Instantiate customer's username
+// TODO: change this to accountID
 $customer->username = $_GET['username'];
 
-// Attempt fetching a single customer
+// Attempt fetching single customers
 $stmt = $customer->getCustomerInfo();
 $res = oci_fetch_assoc($stmt);
 
