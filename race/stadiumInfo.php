@@ -7,41 +7,39 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once "../config/database.php";
-include_once "../objects/customer.php";
+include_once "../objects/race.php";
 
 $database = new Database();
 $db = $database->connectToDB();
 
-// Instantiate new customer object
-$customer = new Customer($database);
+// Instantiate new race object
+$bet = new Race($database);
 
 // Attempt fetching all customers
-$stmt = $customer->read();
+$stmt = $bet->getStadiumInfo();
 $nrows = oci_fetch_all($stmt, $res);
 
 // Instantiate records array and push customer objects using loop
 if ($nrows > 0) {
-    $customers_arr = array();
-    $customers_arr["records"] = array();
+    $stadium_array = array();
+    $stadium_array["records"] = array();
 
     for ($i = 0; $i < $nrows; $i++) {
         $customer_i = array(
-            "accountID" => $res["ACCOUNTID"][$i],
             "name" => $res["NAME"][$i],
-            "balance" => $res["BALANCE"][$i],
-            "address" => $res["ADDRESS"][$i],
-            "memberID" => $res["MEMBERID"][$i],
-            "username" => $res["USERNAME"][$i]
+            "stadium_address" => $res["STADIUMADDR"][$i],
+            "race_type" => $res["RACE_TYPE"][$i],
+            "race_date" => $res["RACE_DATE"][$i],
         );
 
-        array_push($customers_arr["records"], $customer_i);
+        array_push($stadium_array["records"], $customer_i);
     }
 
     oci_free_statement($stmt);
 
     http_response_code(200);
 
-    echo json_encode($customers_arr);
+    echo json_encode($stadium_array);
 } else {
     http_response_code(404);
 
