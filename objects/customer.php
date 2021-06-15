@@ -38,6 +38,8 @@ class Customer {
         " SET balance = balance + " . $this->fund . 
         " WHERE username = " . $this->username;
         $stmt = $this->database->executePlainSQL($query);
+
+        return $stmt;
     }
 
     function createCustomer() {

@@ -20,18 +20,20 @@ $customer = new Customer($database);
 
 // Decode provided data
 $data = json_decode(file_get_contents('php://input'), true);
-// echo("*****")
-// echo($data)
 
 // Instantiate transaction data
 $customer->username = $data['username'];
 $customer->fund = $data['fund'];
 
 //Attemp updating customer balance
-$res = oci_num_rows($customer->addFund());
+$stmt = $customer->addFund();
+$res = oci_execute($stmt);
 
-if($res > 0) {
+if(oci_num_rows($stmt) > 0) {
+    oci_free_statement($stmt);
+
     http_response_code(200);
+    
     echo json_encode(
         array("message" => "Successfully Updated.")
     );
