@@ -19,18 +19,18 @@ $db = $database->connectToDB();
 $customer = new Customer($database);
 
 // Decode provided data
-// $data = json_decode(file_get_contents('php://input'), true);
+$data = json_decode(file_get_contents('php://input'), true);
 // echo("*****")
 // echo($data)
 
-// Instantiate customer's username
-$customer->username = $_POST['username'];
-$customer->fund = $_POST['fund'];
+// Instantiate transaction data
+$customer->username = $data['username'];
+$customer->fund = $data['fund'];
 
 //Attemp updating customer balance
-$res = $customer->addFund();
+$res = oci_num_rows($customer->addFund());
 
-if($res != false) {
+if($res > 0) {
     http_response_code(200);
     echo json_encode(
         array("message" => "Successfully Updated.")
@@ -42,4 +42,5 @@ if($res != false) {
         array("message" => "Error Updating Account Balance.")
     );
 }
+$database->disconnectFromDB();
 ?>

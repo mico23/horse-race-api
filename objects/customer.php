@@ -36,15 +36,8 @@ class Customer {
     function addFund() {
         $query = "UPDATE " . $this->table_name . 
         " SET balance = balance + " . $this->fund . 
-        "WHERE username = " . $this->username;
+        " WHERE username = " . $this->username;
         $stmt = $this->database->executePlainSQL($query);
-
-        // factor this later
-        if (OCICommit($this->database->conn)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     function createCustomer() {
