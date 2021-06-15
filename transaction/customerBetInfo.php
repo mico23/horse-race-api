@@ -19,7 +19,7 @@ $bet = new Bet($database);
 $bet->accountID = $_GET['accountid'];
 
 // Attempt fetching all customers
-$stmt = $bet->getBetInfo();
+$stmt = $bet->getBetAllInfo();
 $nrows = oci_fetch_all($stmt, $res);
 
 // Instantiate records array and push customer objects using loop
