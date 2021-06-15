@@ -35,7 +35,7 @@ class Customer {
 
     function addFund() {
         $query = "UPDATE " . $this->table_name . 
-        "SET balance = balance + " . $this->fund . 
+        " SET balance = balance + " . $this->fund . 
         "WHERE username = " . $this->username;
         $stmt = $this->database->executePlainSQL($query);
 

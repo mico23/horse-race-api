@@ -12,7 +12,7 @@ class Race {
     }
 
     function getStadiumInfo() {
-        $query = "SELECT s.NAME, STADIUMADDR, RACE_TYPE, RACE_DATE FROM " . 
+        $query = "SELECT RACEID, s.NAME, STADIUMADDR, RACE_TYPE, RACE_DATE FROM " . 
         $this->table_name_1 . " r, " . $this->table_name_2 . " s" . 
         " WHERE r.STADIUMADDR = s.ADDRESS";
 

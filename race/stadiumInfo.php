@@ -13,10 +13,10 @@ $database = new Database();
 $db = $database->connectToDB();
 
 // Instantiate new race object
-$bet = new Race($database);
+$race = new Race($database);
 
 // Attempt fetching all customers
-$stmt = $bet->getStadiumInfo();
+$stmt = $race->getStadiumInfo();
 $nrows = oci_fetch_all($stmt, $res);
 
 // Instantiate records array and push customer objects using loop
@@ -26,7 +26,8 @@ if ($nrows > 0) {
 
     for ($i = 0; $i < $nrows; $i++) {
         $customer_i = array(
-            "name" => $res["NAME"][$i],
+            "raceid" => $res["RACEID"][$i],
+            "stadium_name" => $res["NAME"][$i],
             "stadium_address" => $res["STADIUMADDR"][$i],
             "race_type" => $res["RACE_TYPE"][$i],
             "race_date" => $res["RACE_DATE"][$i],
