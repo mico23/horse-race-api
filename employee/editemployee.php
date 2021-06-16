@@ -23,28 +23,19 @@ $data = json_decode(file_get_contents('php://input'), true);
 
 // Instantiate editing data
 $employee->username = $data['username'];
-$employee->level = $data['level'];
-$employee->position = $data['position'];
-$employee->salary = $data['salary'];
+$employee->level = $data['emp_level'];
+$employee->position = $data['emp_type'];
 
 //Attemp updating employee balance
-$stmt = $employee->editEmployee();
-$res = oci_execute($stmt);
-
-if(oci_num_rows($stmt) > 0) {
-    oci_free_statement($stmt);
-
-    http_response_code(200);
-    
-    echo json_encode(
-        array("message" => "Successfully Updated.")
-    );
-} else {
-    http_response_code(404);
-
-    echo json_encode(
-        array("message" => "Error updating Employee.")
-    );
+if (!$employee->editEmployee()) {
+    http_response_code(500);
+    echo json_encode(array("message" => "Error updating user with given credentials."));
+    die();
 }
+
+http_response_code(200);
+    
+echo json_encode(array("message" => "Successfully Updated."));
+
 $database->disconnectFromDB();
 ?>

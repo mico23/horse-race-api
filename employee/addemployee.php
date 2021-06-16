@@ -11,6 +11,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 include_once "../config/database.php";
 include_once "../objects/employee.php";
+include_once "../objects/users.php";
 
 $database = new Database();
 $db = $database->connectToDB();
@@ -18,36 +19,38 @@ $db = $database->connectToDB();
 // Instantiate new employee object
 $employee = new Employee($database);
 
+$user = new User($database);
+
 // Decode provided data
 $data = json_decode(file_get_contents('php://input'), true);
 
 // Instantiate addition data
 $employee->username = $data['username'];
 $employee->name = $data['name'];
-$employee->accountID = $data['accountID'];
-$employee->level = $data['level'];
-$employee->position = $data['position'];
-$employee->salary = $data['salary'];
-$employee->startdate = $data['startdate'];
+$employee->level = $data['emp_level'];
+$employee->position = $data['emp_type'];
+$employee->startdate = $data['starting_date'];
+$employee->managedBy = $data['managed_by'];
+
+$user->username = $data['username'];
+$user->password = "password";
+
+if(!$user->createUser()) {
+    http_response_code(500);
+    echo json_encode(array("message" => "Error creating user with given credentials."));
+    die();
+}
 
 //Attemp adding employee 
-$stmt = $employee->addEmployee();
-$res = oci_execute($stmt);
-
-if(oci_num_rows($stmt) > 0) {
-    oci_free_statement($stmt);
-
-    http_response_code(200);
-    
-    echo json_encode(
-        array("message" => "Successfully Added.")
-    );
-} else {
-    http_response_code(404);
-
-    echo json_encode(
-        array("message" => "Error Adding Employee.")
-    );
+if (!$employee->addEmployee()) {
+    http_response_code(500);
+    echo json_encode(array("message" => "Error creating user with given credentials."));
+    die();
 }
+
+http_response_code(200);
+
+echo json_encode(array("message" => "Successfully Added."));
+
 $database->disconnectFromDB();
 ?>

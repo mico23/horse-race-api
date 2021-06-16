@@ -14,6 +14,7 @@ class Employee {
     public $salary;
     public $username;
     public $startdate;
+    public $managedBy;
 
     public function __construct($db) {
         $this->database = $db;
@@ -49,9 +50,21 @@ class Employee {
 
     function addEmployee() {
         $query = "INSERT INTO " . $this->table_name_1 . 
-            " (accountID, name, level, type, salary, username, startdate) VALUES ('" . 
-            $this->accountID . "', '" . $this->name . "', '" . $this->level . "', '" . 
-            $this->position . "', '" . $this->salary . "', '" . $this->username . "', '" . $this->startdate . "')";
+            " (name, emp_level, emp_type, starting_date, managed_by, username) VALUES ('" . 
+            $this->name . "', '" . $this->level . "', '" . $this->position . "', DATE '" . $this->startdate . "', " . 
+            $this->managedBy . ", '" . $this->username . "')";
+        $stmt = $this->database->executePlainSQL($query);
+
+        if (OCICommit($this->database->conn)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function editEmployee() {
+        $query = "UPDATE " . $this->table_name_1 . " SET emp_type = '" . $this->position . 
+            "', emp_level = '" . $this->level . "' WHERE username = '" . $this->username . "'";
         $stmt = $this->database->executePlainSQL($query);
 
         if (OCICommit($this->database->conn)) {
