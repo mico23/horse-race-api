@@ -2,6 +2,9 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+
+header("Access-Control-Allow-Origin: *");
+
 class Customer {
     private $database;
     private $table_name = "Customer";
@@ -25,7 +28,6 @@ class Customer {
         return $stmt;
     }
 
-    // modify this to join membership table
     function getCustomerInfo() {
         $query = "SELECT * FROM " . $this->table_name . " WHERE username = " . $this->username;
         $stmt = $this->database->executePlainSQL($query);
@@ -36,16 +38,20 @@ class Customer {
     function addFund() {
         $query = "UPDATE " . $this->table_name . 
         " SET balance = balance + " . $this->fund . 
-        " WHERE username = " . $this->username;
+        " WHERE username = '" . $this->username . "'";
         $stmt = $this->database->executePlainSQL($query);
 
-        return $stmt;
+        if (OCICommit($this->database->conn)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function createCustomer() {
         $query = "INSERT INTO " . $this->table_name . 
-            " (accountID, name, balance, address, memberID, username) VALUES ('" . 
-            $this->accountID . "', '" . $this->name . "', '" . $this->balance . "', '" . 
+            " (name, balance, address, memberID, username) VALUES ('" . 
+            $this->name . "', '" . $this->balance . "', '" . 
             $this->address . "', '" . $this->memberID . "', '" . $this->username . "')";
         $stmt = $this->database->executePlainSQL($query);
 

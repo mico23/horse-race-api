@@ -2,6 +2,9 @@
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
+
+header("Access-Control-Allow-Origin: *");
+
 class Database {
     private $username = "ora_enxie";
     private $password = "a47605134";
